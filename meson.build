@@ -28,6 +28,7 @@ test_names = [
   'arg_flags',
   'arg_to_non_arg_flag',
   'argument_separation',
+  'argument_separation_nargs',
   'bool_flags',
   'choices_description',
   'completion',
