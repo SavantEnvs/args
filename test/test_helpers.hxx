@@ -38,6 +38,10 @@ inline void require_false(bool cond)
     }
 }
 
+// The throwing helpers are unusable in a translation unit built without
+// exception support, and merely parsing them is an error there.
+#ifdef __cpp_exceptions
+
 template <typename F>
 void require_nothrow(F &&f)
 {
@@ -100,6 +104,8 @@ void require_throws_with(F &&f, const std::string &expected)
     }
     fail("require_throws_with: nothing thrown");
 }
+
+#endif
 
 template <typename ContainerT, typename TargetT>
 void require_contains(const ContainerT& container, const TargetT& target)

@@ -185,6 +185,12 @@ if (ARGS_BUILD_UNITTESTS)
         args_configure_test(${target_name})
         add_test(NAME ${test_name} COMMAND ${target_name})
     endforeach ()
+
+    # ARGS_NOEXCEPT exists so the header can be used where exceptions are off,
+    # so build this one with them off to keep that working.
+    if (NOT MSVC)
+        target_compile_options(argstest-no_exceptions PRIVATE -fno-exceptions)
+    endif ()
 endif()
 
 add_library(taywee::args ALIAS args)
