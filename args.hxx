@@ -398,13 +398,7 @@ namespace args
             
             if (can_reserve && total > 0)
             {
-                try
-                {
-                    res.reserve(total);
-                }
-                catch (...) {
-                    // Fall back to default allocation
-                }
+                res.reserve(total);
             }
             
             bool first = true;

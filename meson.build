@@ -103,4 +103,11 @@ endforeach
 test('multiple_inclusion', executable('argstest-multiple_inclusion',
   sources: ['test/multiple_inclusion.cxx', 'test/multiple_inclusion.aux.cxx'],
   dependencies: args_dep))
+
+# ARGS_NOEXCEPT exists so the header can be used where exceptions are off, so
+# build this one with them off to keep that working.
+test('no_exceptions', executable('argstest-no_exceptions',
+  sources: 'test/no_exceptions.cxx',
+  cpp_args: meson.get_compiler('cpp').get_supported_arguments('-fno-exceptions'),
+  dependencies: args_dep))
 endif
