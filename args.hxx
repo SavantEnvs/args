@@ -1715,7 +1715,24 @@ namespace args
                 children.emplace_back(&child);
 
                 if(child.IsFlag()) {
+#ifndef ARGS_NOEXCEPT
+                    // Detection runs from the child's own constructor, so a
+                    // duplicate throws before that constructor completes and the
+                    // child's storage is released while the stack unwinds. Undo
+                    // the registration first, or a caller that catches the error
+                    // leaves this group holding a pointer to a dead object.
+                    try
+                    {
+                        SignalDetectDuplicates();
+                    }
+                    catch (...)
+                    {
+                        children.pop_back();
+                        throw;
+                    }
+#else
                     SignalDetectDuplicates();
+#endif
                 }
             }
 
@@ -3392,8 +3409,11 @@ namespace args
 
             void AddCompletion(CompletionFlag &completionFlag)
             {
-                completion = &completionFlag;
+                // Only take the pointer once registration has succeeded: Add()
+                // throws on a duplicate flag, and the flag it was handed is
+                // gone by the time that error reaches the caller.
                 Add(completionFlag);
+                completion = &completionFlag;
             }
 
             /** The program name for help generation
