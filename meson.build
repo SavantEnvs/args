@@ -36,6 +36,7 @@ test_names = [
   'count_flag',
   'custom_types',
   'default_values',
+  'duplicate_flag_rollback',
   'extra_positionals',
   'get_assignable',
   'get_program_line',
