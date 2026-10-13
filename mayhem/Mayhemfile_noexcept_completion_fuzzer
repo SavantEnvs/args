@@ -1,0 +1,8 @@
+project: savantenvs/args
+target: noexcept_completion_fuzzer-mined-a3d16db
+cmds:
+  - cmd: /mayhem/noexcept_completion_fuzzer
+    libfuzzer: true
+testsuite:
+  - https://$MAYHEM_DOMAIN/$MAYHEM_PROJECT/$MAYHEM_TARGET/testsuite.tar
+  - file://mayhem/noexcept_completion_fuzzer-mined-a3d16db/testsuite
