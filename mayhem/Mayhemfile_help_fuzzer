@@ -1,0 +1,7 @@
+project: savantenvs/args
+target: help_fuzzer-mined-046d67d
+cmds:
+  - cmd: /mayhem/help_fuzzer
+    libfuzzer: true
+testsuite:
+  - https://$MAYHEM_DOMAIN/$MAYHEM_PROJECT/$MAYHEM_TARGET/testsuite.tar
